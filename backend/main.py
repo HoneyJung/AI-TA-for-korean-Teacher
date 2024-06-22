@@ -3,6 +3,7 @@ import os
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, File, Form, UploadFile
+import pdfkit
 from starlette.responses import FileResponse
 
 from connect_api import authentication, create_print_job, upload_print_file, execute_print
@@ -53,6 +54,8 @@ async def print_execute(
     with open(file_path, "wb") as f:
         contents = await file.read()
         f.write(contents)
+
+    pdfkit.from_file(file, 'out.pdf')
 
     job_info = create_print_job(subject_id, access_token)
     upload_print_file(job_info["id"], job_info["upload_uri"])

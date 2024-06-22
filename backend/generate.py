@@ -24,6 +24,9 @@ def fill_template(inference_output):
     today = datetime.today()
     formatted_date = today.strftime("%Y. %m. %d")
 
+    print(inference_output)
+    html_template = html_template.replace("{copies}", str(inference_output["프린트 매수"]))
+
     html_template = html_template.replace("{날짜}", str(formatted_date))
     html_template = html_template.replace("큰 꿈을 키우며 사랑이 가득한 해동교육", information["header_left"])
     html_template = html_template.replace("해 동 알 림 마 당", information["header_center"])
